@@ -39,14 +39,16 @@ export default class MainPage extends Component {
   render() {
     const { events } = this.state;
 
-    console.log(this.state);
-
-    console.log(this.state.userTelegramId);
+    console.log("id = " + this.state.userTelegramId);
 
     return (
       <div>
         <Header />
-        <PageTitle title="Get your own kick off" desc="with Wargaming S&C" />
+        {this.state.user ? (
+          <PageTitle title="Hello, " desc="feel free at this website" />
+        ) : (
+          <PageTitle title="Get your own kick off" desc="with Wargaming S&C" />
+        )}
         <SectionMain />
         <EventDesc events={events} />
         {/* <Footer /> */}
@@ -55,7 +57,9 @@ export default class MainPage extends Component {
   }
 
   componentDidMount() {
-    if (!this.state.userTelegramId) {
+    const telegramId = localStorage.getItem("telegramId");
+
+    if (!telegramId) {
       const locationHash = !!this.props.location.search
         ? this.props.location.search
             .slice(1)
@@ -64,23 +68,26 @@ export default class MainPage extends Component {
             .filter(v => v[0] === "id")[0][1]
         : undefined;
 
-      console.log(locationHash);
-
+      localStorage.setItem("telegramId", locationHash);
       this.setState({
         userTelegramId: localStorage.getItem("telegramId") || locationHash,
       });
+    } else {
+      this.setState({
+        userTelegramId: telegramId,
+      });
     }
-  }
 
-  // this.setState({
-  //   userTelegramId: localStorage.getItem('telegramId') ||
-  //     this.props
-  //       .location
-  //       .search
-  //       .slice(1)
-  //       .split('&')
-  //       .map(s => s.split('='))
-  //       .filter(v => v[0] === 'id')[0][1] ||
-  //     null
-  // });
+    fetch(
+      `http://forge-development.herokuapp.com/api/users/${
+        this.state.userTelegramId
+      }`,
+    )
+      .then(data => data.json())
+      .then(user => {
+        console.log(user);
+
+        this.setState({ user });
+      });
+  }
 }

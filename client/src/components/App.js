@@ -24,7 +24,7 @@ function AppRouter() {
   return (
     <Router>
       <Route path="/" exact component={MainPage} />
-      {/* <Route path="/users/" component={Users} /> */}
+      <Route path="/users/" component={Users} />
     </Router>
   );
 }
