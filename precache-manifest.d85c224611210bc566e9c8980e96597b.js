@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5f54ef40e2fa66c7d36a6c04357350e6",
+    "revision": "f548d92bfe25a2883f0ba41d7016f93f",
     "url": "/share_coffee_frontend/index.html"
   },
   {
-    "revision": "27a00707b2a4c20c7a48",
-    "url": "/share_coffee_frontend/static/css/main.8947bee6.chunk.css"
+    "revision": "9e43f06552f20c8f32a4",
+    "url": "/share_coffee_frontend/static/css/main.ec58ef70.chunk.css"
   },
   {
-    "revision": "54766e08e5ea7bada715",
-    "url": "/share_coffee_frontend/static/js/2.9a08430f.chunk.js"
+    "revision": "30a8eac3a1991f041ecd",
+    "url": "/share_coffee_frontend/static/js/2.0244fe2d.chunk.js"
   },
   {
-    "revision": "27a00707b2a4c20c7a48",
-    "url": "/share_coffee_frontend/static/js/main.bed195e3.chunk.js"
+    "revision": "9e43f06552f20c8f32a4",
+    "url": "/share_coffee_frontend/static/js/main.f578530c.chunk.js"
   },
   {
     "revision": "65eed05b43ebe664c167",
