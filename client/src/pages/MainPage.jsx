@@ -41,11 +41,30 @@ export default class MainPage extends Component {
 
     console.log("id = " + this.state.userTelegramId);
 
+    if (!!localStorage.getItem("telegramId") && !this.state.user) {
+      const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+      const requestUrl = `https://forge-development.herokuapp.com/api/users/${
+        // const requestUrl = `http://localhost:9000/api/users/${
+        localStorage.getItem("telegramId")
+      }`;
+
+      fetch(requestUrl)
+        .then(blob => blob.json())
+        .then(user => {
+          console.log(user);
+
+          this.setState({ user });
+        });
+    }
+
     return (
       <div>
         <Header />
         {this.state.user ? (
-          <PageTitle title="Hello, " desc="feel free at this website" />
+          <PageTitle
+            title={"Hello, " + this.state.user.username}
+            desc="feel free at this website"
+          />
         ) : (
           <PageTitle title="Get your own kick off" desc="with Wargaming S&C" />
         )}
@@ -70,24 +89,12 @@ export default class MainPage extends Component {
 
       localStorage.setItem("telegramId", locationHash);
       this.setState({
-        userTelegramId: localStorage.getItem("telegramId") || locationHash,
+        userTelegramId: localStorage.getItem("telegramId"),
       });
     } else {
       this.setState({
         userTelegramId: telegramId,
       });
     }
-
-    fetch(
-      `http://forge-development.herokuapp.com/api/users/${
-        this.state.userTelegramId
-      }`,
-    )
-      .then(data => data.json())
-      .then(user => {
-        console.log(user);
-
-        this.setState({ user });
-      });
   }
 }
